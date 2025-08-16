@@ -2,9 +2,11 @@ import './Header.scss';
 import search from '../../../img/search.svg';
 import sidebar from '../../../img/sidebar.svg';
 import { createElement, qs } from '../../utils/dom';
+import toggleClassName from '../../utils/toggleClassName';
 
 export default class Header {
-    constructor() {
+    constructor(){
+
     }
 
     getElement() {
@@ -42,9 +44,10 @@ export default class Header {
 
         serviceBlock.append(headerSearchWrapper, sidebarButton);
 
+        toggleClassName(headerSearchImage, headerSearch, 'search-active');
+        
         return serviceBlock;
     }
-
 
     //Функция для изменения цвета иконок svg в работе
     _changeSvgColor() {
