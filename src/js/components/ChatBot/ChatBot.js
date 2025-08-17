@@ -4,6 +4,7 @@ import Header from '../header/Header';
 import ChatArea from '../chatArea/ChatArea';
 import InputBar from '../InputBar/InputBar';
 import Message from '../Message/Message';
+import { fetchMessage } from '../../utils/api';
 
 export default class ChatBot {
     constructor(container) {
@@ -16,6 +17,7 @@ export default class ChatBot {
         this._init();
     }
 
+    //Инициализация
     _init() {
         this._renderChat();
 
@@ -42,20 +44,22 @@ export default class ChatBot {
     }
 
     //Отправка текстового сообщения
-    _sendMessage(e) {
+    async _sendMessage(e) {
         e.preventDefault();
         const messageInput = e.target.elements.message;
         const messageText = messageInput.value.trim();
 
         if (!messageText) {
-            e.target.elements.message.value = '';
+            e.target.reset();
             return;
         }
+
+        fetchMessage('text', messageText);
 
         const message = new Message('text', messageText);
         const messageItem = message.createMessage();
 
-        e.target.elements.message.value = '';
+        e.target.reset();
 
         this.chatAreaElement.appendChild(messageItem);
     }
