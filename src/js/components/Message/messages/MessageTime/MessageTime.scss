@@ -1,0 +1,12 @@
+@use '../../../../../css/variables.scss' as *;
+
+.time-block{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+
+    align-self: flex-end;
+
+    color: $message-second;
+}

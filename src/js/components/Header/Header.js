@@ -1,13 +1,10 @@
 import './Header.scss';
-import search from '../../../img/search.svg';
-import sidebar from '../../../img/sidebar.svg';
-import { createElement, qs } from '../../utils/dom';
+import search from '../../../svg/search.svg';
+import sidebar from '../../../svg/sidebar.svg';
+import { createElement } from '../../utils/dom';
 import toggleClassName from '../../utils/toggleClassName';
 
 export default class Header {
-    constructor(){
-
-    }
 
     getElement() {
         return this._renderHeader();
@@ -31,21 +28,21 @@ export default class Header {
         const headerSearchWrapper = createElement('div', ['header-search-wrapper']);
         const headerSearch = createElement('input', ['header-search']);
         headerSearch.type = 'text';
-        const headerSearchImage = createElement('img', ['header-search-image']);
-        headerSearchImage.src = search;
+        const headerSearchIcon = createElement('img', ['header-search-icon', 'icon']);
+        headerSearchIcon.src = search;
 
-        headerSearchWrapper.append(headerSearch, headerSearchImage);
+        headerSearchWrapper.append(headerSearch, headerSearchIcon);
 
         const sidebarButton = createElement('button', ['sidebar-button']);
-        const sidebarButtonImage = createElement('img', ['sidebar-button-image']);
-        sidebarButtonImage.src = sidebar;
+        const sidebarButtonIcon = createElement('img', ['sidebar-button-icon', 'icon']);
+        sidebarButtonIcon.src = sidebar;
 
-        sidebarButton.appendChild(sidebarButtonImage);
+        sidebarButton.appendChild(sidebarButtonIcon);
 
         serviceBlock.append(headerSearchWrapper, sidebarButton);
 
-        toggleClassName(headerSearchImage, headerSearch, 'search-active');
-        
+        toggleClassName(headerSearchIcon, headerSearch, 'search-active');
+
         return serviceBlock;
     }
 

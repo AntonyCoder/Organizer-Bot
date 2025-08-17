@@ -1,9 +1,11 @@
+@use '../../../css/variables.scss' as *;
+
 .header {
     display: flex;
     align-items: center;
     justify-content: space-between;
 
-    padding: 20px;
+    padding: 15px;
 }
 
 .service-block {
@@ -27,28 +29,12 @@
     outline: none;
 }
 
-.header-search-image {
-    width: 20px;
+.header-search-icon {
     transform: translateX(-20px);
     cursor: pointer;
 }
 
 .search-active {
-    border-bottom: 1px solid grey;
+    border-bottom: 1px solid $secondary-color;
     width: 150px;
-}
-
-
-/* Sidebar Button */
-.sidebar-button {
-    border: none;
-    background-color: transparent;
-    cursor: pointer;
-
-    display: flex;
-    align-items: center;
-}
-
-.sidebar-button-image {
-    width: 20px;
 }
