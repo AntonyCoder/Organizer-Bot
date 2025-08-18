@@ -1,7 +1,7 @@
 import './InputBar.scss';
-import attachment from '../../../svg/attachment.svg';
-import smile from '../../../svg/smile-circle.svg';
-import microphone from '../../../svg/microphone.svg';
+import attachment from '../../../assets/svg/attachment.svg';
+import smile from '../../../assets/svg/smile-circle.svg';
+import microphone from '../../../assets/svg/microphone.svg';
 import { createElement } from '../../utils/dom';
 
 export default class InputBar {
@@ -30,14 +30,17 @@ export default class InputBar {
     }
 
     _createFileButton() {
-        const addFileButton = createElement('button', ['add-file-button']);
-        addFileButton.type = 'button';
+        const addFileLabel = createElement('label', ['add-file-label']);
+
+        const addFileInput = createElement('input', ['add-file-input']);
+        addFileInput.type = 'file';
+        addFileInput.hidden
         const fileIcon = createElement('img', ['file-icon', 'icon']);
         fileIcon.src = attachment;
 
-        addFileButton.appendChild(fileIcon);
+        addFileLabel.append(addFileInput, fileIcon);
 
-        return addFileButton;
+        return addFileLabel;
     }
 
     _createMessageInput() {
@@ -45,6 +48,7 @@ export default class InputBar {
         messageInput.type = 'text';
         messageInput.placeholder = 'Write a message...';
         messageInput.name = 'message';
+        messageInput.autocomplete = 'off';
 
         return messageInput;
     }

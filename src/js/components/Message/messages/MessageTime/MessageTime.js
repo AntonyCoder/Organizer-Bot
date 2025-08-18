@@ -1,5 +1,5 @@
 import './MessageTime.scss';
-import doubleCheck from '../../../../../svg/double-check.svg';
+import doubleCheck from '../../../../../assets/svg/double-check.svg';
 import dayjs from 'dayjs';
 import { createElement } from '../../../../utils/dom';
 
