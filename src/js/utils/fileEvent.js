@@ -3,25 +3,56 @@ import { createElement, qs } from "./dom";
 export default function uploadFile() {
     document.addEventListener('DOMContentLoaded', () => {
 
+        let dragCounter = 0;
         const chatArea = qs('.chat-area');
         const dragEvents = ['dragenter', 'dragover', 'dragleave', 'drop'];
-        const dragActiveEvents = ['dragenter', 'dragover'];
-        const dragFinishEvents = ['dragleave', 'drop'];
 
         dragEvents.forEach(event => {
             chatArea.addEventListener(event, preventDefaults);
         });
 
-        dragActiveEvents.forEach(event => {
-            chatArea.addEventListener(event, () => highlightChatArea(chatArea));
-        });
+        chatArea.addEventListener('dragenter', () => {
+            dragCounter++;
+            showOverlay(chatArea);
+        })
 
-        dragFinishEvents.forEach(event => {
-            chatArea.addEventListener(event, () => unHighlightChatArea(chatArea));
-        });
+        chatArea.addEventListener('dragleave', () => {
+            dragCounter--;
+            if (dragCounter === 0) {
+                removeOverlay(chatArea);
+            }
+        })
 
-        chatArea.addEventListener('drop', handleDrop)
+        chatArea.addEventListener('drop', (e) => {
+            dragCounter = 0;
+            removeOverlay(chatArea);
+            handleDrop(e);
+        })
     })
+}
+
+//Отображение затемненного фона
+function showOverlay(chatArea) {
+    let chatOverlay = qs('.chat-overlay', chatArea);
+    if (!chatOverlay) {
+        const chatOverlay = createElement('div', ['chat-overlay']);
+        const chatOverlayText = createElement('p', ['chat-overlay-text'], 'Drop files here');
+
+        chatOverlay.appendChild(chatOverlayText);
+
+        chatArea.appendChild(chatOverlay);
+    } else {
+        chatOverlay.style.height = chatArea.scrollHeight + "px";
+        chatOverlay.style.display = 'flex';
+    }
+}
+
+//Скрытие затемненного фона
+function removeOverlay(chatArea) {
+    let chatOverlay = qs('.chat-overlay', chatArea);
+    if (chatOverlay) {
+        chatOverlay.style.display = 'none';
+    }
 }
 
 //Функция предотвращения событий по умолчанию
@@ -30,19 +61,9 @@ function preventDefaults(e) {
     e.stopPropagation();
 }
 
-//Включение подстветки области перетаскивания файла
-function highlightChatArea(chatArea) {
-    chatArea.classList.add('highlight');
-}
-
-//Выключение подсветки области перетаскивания файла
-function unHighlightChatArea(chatArea) {
-    chatArea.classList.remove('highlight');
-}
-
 //Обработка добавления файла
-function handleDrop(e){
-    const data =  e.dataTransfer;
+function handleDrop(e) {
+    const data = e.dataTransfer;
     const files = data.files;
     console.log(files);
 }

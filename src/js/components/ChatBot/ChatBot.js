@@ -62,5 +62,6 @@ export default class ChatBot {
         e.target.reset();
 
         this.chatAreaElement.appendChild(messageItem);
+        this.chatAreaElement.scrollTop = this.chatAreaElement.scrollHeight;
     }
 }
