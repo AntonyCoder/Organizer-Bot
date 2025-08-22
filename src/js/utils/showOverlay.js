@@ -1,6 +1,7 @@
 import { createElement, qs } from "./dom";
+
 //Функция управления загрузкой файлов
-export default function uploadFile() {
+export default function showOverlay() {
     document.addEventListener('DOMContentLoaded', () => {
 
         let dragCounter = 0;
@@ -13,7 +14,7 @@ export default function uploadFile() {
 
         chatArea.addEventListener('dragenter', () => {
             dragCounter++;
-            showOverlay(chatArea);
+            renderOverlay(chatArea);
         })
 
         chatArea.addEventListener('dragleave', () => {
@@ -32,7 +33,7 @@ export default function uploadFile() {
 }
 
 //Отображение затемненного фона
-function showOverlay(chatArea) {
+function renderOverlay(chatArea) {
     let chatOverlay = qs('.chat-overlay', chatArea);
     if (!chatOverlay) {
         const chatOverlay = createElement('div', ['chat-overlay']);

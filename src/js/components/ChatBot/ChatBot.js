@@ -3,8 +3,7 @@ import { createElement, qs } from '../../utils/dom';
 import Header from '../header/Header';
 import ChatArea from '../chatArea/ChatArea';
 import InputBar from '../InputBar/InputBar';
-import Message from '../Message/Message';
-import { fetchMessage } from '../../utils/api';
+import sendMessage from '../../utils/sendMessage';
 
 export default class ChatBot {
     constructor(container) {
@@ -13,7 +12,6 @@ export default class ChatBot {
         }
 
         this.container = container;
-        this._sendMessage = this._sendMessage.bind(this)
         this._init();
     }
 
@@ -22,7 +20,9 @@ export default class ChatBot {
         this._renderChat();
 
         const messageForm = qs('.message-form');
-        messageForm.addEventListener('submit', this._sendMessage);
+        const inputFile = qs('.add-file-input', messageForm);
+        messageForm.addEventListener('submit', (e) => sendMessage(e, 'text'));
+        inputFile.addEventListener('change', (e)=> sendMessage(e));
     }
 
     //Отрисовка основного блока всего чатбота
@@ -41,27 +41,5 @@ export default class ChatBot {
         chatBot.append(headerElement, this.chatAreaElement, inputBarElement);
 
         this.container.appendChild(chatBot);
-    }
-
-    //Отправка текстового сообщения
-    async _sendMessage(e) {
-        e.preventDefault();
-        const messageInput = e.target.elements.message;
-        const messageText = messageInput.value.trim();
-
-        if (!messageText) {
-            e.target.reset();
-            return;
-        }
-
-        fetchMessage('text', messageText);
-
-        const message = new Message('text', messageText);
-        const messageItem = message.createMessage();
-
-        e.target.reset();
-
-        this.chatAreaElement.appendChild(messageItem);
-        this.chatAreaElement.scrollTop = this.chatAreaElement.scrollHeight;
     }
 }
