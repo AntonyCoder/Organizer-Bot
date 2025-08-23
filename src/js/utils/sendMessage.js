@@ -7,7 +7,7 @@ export default async function sendMessage(event, type) {
     event.preventDefault();
 
     try {
-        const { messageContent, currentType } = checkMessageType(event, type);
+        const { currentType, messageContent } = checkMessageType(event, type);
         if (!messageContent) return;
 
         await fetchMessage(currentType, messageContent);
@@ -26,7 +26,7 @@ export default async function sendMessage(event, type) {
 
 }
 
-//Проверка типа сообщения и возвращение соответствующего messageContent
+//Проверка типа сообщения и возвращение соответствующего messageContent и currentType
 function checkMessageType(event, type = null) {
     let messageContent;
     let currentType;
@@ -42,8 +42,9 @@ function checkMessageType(event, type = null) {
     if (type === null) {
         messageContent = event.target.files[0];
         currentType = messageContent.type.split('/')[0];
+        console.log(currentType);
         event.target.value = '';
     }
 
-    return { messageContent, currentType };
+    return { currentType, messageContent };
 }

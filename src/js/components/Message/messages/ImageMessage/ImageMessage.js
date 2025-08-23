@@ -13,7 +13,11 @@ export default class ImageMessage {
         const messageTime = MessageTime();
 
         const messageImage = createElement('img', ['message-image']);
-        messageImage.src = URL.createObjectURL(this.content);
+        if (this.content instanceof File) {
+            messageImage.src = URL.createObjectURL(this.content);
+        } else if(typeof this.content === 'string'){
+            messageImage.src = `http://localhost:3000${this.content}`;
+        }
 
         messageBlock.append(messageImage, messageTime);
         return messageBlock;

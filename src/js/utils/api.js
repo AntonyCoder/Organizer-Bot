@@ -11,14 +11,26 @@ export default async function loadData() {
 }
 
 //Отправка сообщения
-export async function fetchMessage(type, text) {
+export async function fetchMessage(type, messageContent) {
     try {
-        await fetch('http://localhost:3000/messages', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ type: type, text: text }),
-        })
+        //Если это текстовое сообщение
+        if (type === 'text') {
+            await fetch('http://localhost:3000/messages', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ type: type, messageContent: messageContent }),
+            })
+        } else {
+            //Если другие виды сообщения, например файлы или изображения
+            const formData = new FormData();
+            formData.append('type', type);
+            formData.append('file', messageContent);
+            await fetch('http://localhost:3000/messages', {
+                method: 'POST',
+                body: formData
+            })
+        }
     } catch (error) {
-        console.error(error)
+        console.error('Ошибка отправки сообщения:', error);
     }
 }

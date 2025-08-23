@@ -17,24 +17,24 @@ export default class ChatArea {
     //Отрисовка элемента
     _renderChatArea() {
         this.chatArea = createElement('div', ['chat-area']);
-        // this._renderMessage();
+        this._renderMessage();
 
         return this.chatArea;
     }
 
-    //Отрисовка сообщения
-    // async _renderMessage() {
-    //     try {
-    //         const messages = await loadData();
-    //         messages.forEach(item => {
-    //             const message = new Message(item.type, item.text);
-    //             const messageItem = message.createMessage();
-    //             this.chatArea.appendChild(messageItem);
-    //         })
+    //Отрисовка сообщений при перезагрузке страницы
+    async _renderMessage() {
+        try {
+            const messages = await loadData();
+            messages.forEach(item => {
+                const message = new Message(item.type, item.messageContent);
+                const messageItem = message.createMessage();
+                this.chatArea.appendChild(messageItem);
+            })
 
-    //         this.chatArea.scrollTop = this.chatArea.scrollHeight;
-    //     } catch (error) {
-    //         console.error(error);
-    //     }
-    // }
+            this.chatArea.scrollTop = this.chatArea.scrollHeight; // прокрутка chatArea вниз, нужно доработать
+        } catch (error) {
+            console.error('Ошибка отрисовки сообщений при перезагрузке', error);
+        }
+    }
 }

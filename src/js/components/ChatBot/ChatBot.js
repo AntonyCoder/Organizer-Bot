@@ -21,8 +21,8 @@ export default class ChatBot {
 
         const messageForm = qs('.message-form');
         const inputFile = qs('.add-file-input', messageForm);
-        messageForm.addEventListener('submit', (e) => sendMessage(e, 'text'));
-        inputFile.addEventListener('change', (e)=> sendMessage(e));
+        messageForm.addEventListener('submit', (e) => sendMessage(e, 'text'));// Отправка текстового сообщения 
+        inputFile.addEventListener('change', (e)=> sendMessage(e)); // Отправка иных типов сообщений
     }
 
     //Отрисовка основного блока всего чатбота

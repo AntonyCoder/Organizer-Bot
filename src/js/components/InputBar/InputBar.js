@@ -9,10 +9,12 @@ export default class InputBar {
         this.inputBar = this._renderInputBar();
     }
 
+    //Получение элемента 
     getElement() {
         return this.inputBar;
     }
 
+    //Отрисовка элемента inputBar
     _renderInputBar() {
         const inputBar = createElement('div', ['input-bar']);
         const messageForm = createElement('form', ['message-form']);
@@ -29,6 +31,7 @@ export default class InputBar {
         return inputBar;
     }
 
+    //Создание кнопки добавления файлов
     _createFileButton() {
         const addFileLabel = createElement('label', ['add-file-label']);
 
@@ -43,6 +46,7 @@ export default class InputBar {
         return addFileLabel;
     }
 
+    //Создание поля ввода текста
     _createMessageInput() {
         const messageInput = createElement('input', ['message-input']);
         messageInput.type = 'text';
@@ -53,6 +57,7 @@ export default class InputBar {
         return messageInput;
     }
 
+    //Создание кнопки добавления эмодзи
     _createSmileButton() {
         const addSmileButton = createElement('button', ['add-smile-button']);
         addSmileButton.type = 'button';
@@ -64,6 +69,7 @@ export default class InputBar {
         return addSmileButton;
     }
 
+    //Создание кнопки записи голосового сообщения
     _createVoiceButton() {
         const addVoiceButton = createElement('button', ['add-voice-button']);
         addVoiceButton.type = 'button';
