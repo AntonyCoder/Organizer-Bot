@@ -15,13 +15,18 @@ export default class AudioMessage {
 
         const messageAudio = createElement('audio', ['message-audio']);
         messageAudio.controls = true;
-        if (this.content instanceof File) {
-            messageAudio.src = URL.createObjectURL(this.content);
-        } else if(typeof this.content === 'string'){
-            messageAudio.src = `http://localhost:3000${this.content}`;
-        }
+        
+        this._setUrl(messageAudio, this.content)
 
         messageBlock.append(messageAudio, messageTime);
         return messageBlock;
+    }
+
+    _setUrl(message, path){
+        if (path instanceof File) {
+            message.src = URL.createObjectURL(path);
+        } else if (typeof path === 'string') {
+            message.src = `http://localhost:3000${path}`;
+        }
     }
 }

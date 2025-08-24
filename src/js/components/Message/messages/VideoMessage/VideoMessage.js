@@ -1,23 +1,24 @@
 import { createElement } from "../../../../utils/dom";
 import MessageTime from "../MessageTime/MessageTime";
-import './ImageMessage.scss';
+import './VideoMessage.scss';
 
-export default class ImageMessage {
+export default class AudioMessage {
     constructor(content, time) {
         this.content = content;
-        this.time = time;
+        this.time = time
     }
 
     //Отрисовка сообщения
     render() {
-        const messageBlock = createElement('div', ['message-block']);
+        const messageBlock = createElement('div', ['message-block', 'video']);
         const messageTime = MessageTime(this.time);
 
-        const messageImage = createElement('img', ['message-image']);
+        const messageVideo = createElement('video', ['message-video']);
+        messageVideo.controls = true;
         
-        this._setUrl(messageImage, this.content)
+        this._setUrl(messageVideo, this.content);
 
-        messageBlock.append(messageImage, messageTime);
+        messageBlock.append(messageVideo, messageTime);
         return messageBlock;
     }
 

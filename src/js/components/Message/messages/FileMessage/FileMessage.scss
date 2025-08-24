@@ -1,0 +1,25 @@
+@use '../../../../../assets/css/variables.scss' as *;
+
+.message-file{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: $primary-color;
+    gap: 5px;
+}
+
+.file-icon-wrapper{
+    background-color: $message-second;
+    border-radius: 50%;
+    padding: 5px;
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.file-message-icon{
+    width: 80%
+}

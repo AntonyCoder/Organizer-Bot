@@ -1,6 +1,7 @@
 import { createElement, qs } from "./dom";
+import sendMessage from "./sendMessage";
 
-//Функция управления загрузкой файлов
+//Функция управления отображением затемненного фона
 export default function showOverlay() {
     document.addEventListener('DOMContentLoaded', () => {
 
@@ -32,7 +33,7 @@ export default function showOverlay() {
     })
 }
 
-//Отображение затемненного фона
+//Добавление затемненного фона
 function renderOverlay(chatArea) {
     let chatOverlay = qs('.chat-overlay', chatArea);
     if (!chatOverlay) {
@@ -66,5 +67,5 @@ function preventDefaults(e) {
 function handleDrop(e) {
     const data = e.dataTransfer;
     const files = data.files;
-    console.log(files);
+    sendMessage(files[0]);
 }

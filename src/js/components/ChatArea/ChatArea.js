@@ -2,7 +2,7 @@ import './ChatArea.scss';
 import { createElement } from '../../utils/dom';
 import loadData from '../../utils/api';
 import Message from '../Message/Message';
-import showOverlay from '../../utils/showOverlay';
+import showOverlay from '../../utils/dragDropMessage';
 
 export default class ChatArea {
     constructor() {
@@ -27,12 +27,15 @@ export default class ChatArea {
         try {
             const messages = await loadData();
             messages.forEach(item => {
-                const message = new Message(item.type, item.messageContent, item.time);
+                const message = new Message(item.type, item.messageContent, item.time, item.name);
                 const messageItem = message.createMessage();
                 this.chatArea.appendChild(messageItem);
             })
 
-            this.chatArea.scrollTop = this.chatArea.scrollHeight; // прокрутка chatArea вниз, нужно доработать!!!
+            setTimeout(() => {
+                this.chatArea.scrollTop = this.chatArea.scrollHeight;
+            }, 1000);
+
         } catch (error) {
             console.error('Ошибка отрисовки сообщений при перезагрузке', error);
         }

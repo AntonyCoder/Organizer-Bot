@@ -5,14 +5,12 @@ import dayjs from "dayjs";
 
 //Отправка сообщения 
 export default async function sendMessage(event, type) {
-    event.preventDefault();
 
     try {
         const { currentType, messageContent } = checkMessageType(event, type);
 
         if (!messageContent) return;
         const messageTime = getMessageTime();
-        console.log(messageTime);
 
         await fetchMessage(currentType, messageContent, messageTime);
 
@@ -22,7 +20,9 @@ export default async function sendMessage(event, type) {
         const chatArea = qs('.chat-area');
 
         chatArea.appendChild(messageItem);
-        chatArea.scrollTop = chatArea.scrollHeight;
+        setTimeout(() => {
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }, 100);
 
     } catch (error) {
         console.error('Ошибка при отправке сообщения:', error);
@@ -35,25 +35,32 @@ function checkMessageType(event, type = null) {
     let messageContent;
     let currentType;
 
-    if (type === 'text') {
-        const messageInput = event.target.elements.message;
-        messageContent = messageInput.value.trim();
-        currentType = type;
-
-        event.target.reset();
-    }
-
-    if (type === null) {
-        messageContent = event.target.files[0];
+    if (event instanceof File) {
+        messageContent = event;
         currentType = messageContent.type.split('/')[0];
-        console.log(currentType);
-        event.target.value = '';
+    } else {
+        event.preventDefault();
+
+        if (type === 'text') {
+            const messageInput = event.target.elements.message;
+            messageContent = messageInput.value.trim();
+            currentType = type;
+
+            event.target.reset();
+        }
+
+        if (type === null) {
+            messageContent = event.target.files[0];
+            currentType = messageContent.type.split('/')[0];
+            event.target.value = '';
+        }
     }
 
     return { currentType, messageContent };
 }
 
-function getMessageTime(){
-   const time = dayjs().format('HH:mm');
-   return time;
+//Получение времени отправки сообщения
+function getMessageTime() {
+    const time = dayjs().format('HH:mm');
+    return time;
 }
