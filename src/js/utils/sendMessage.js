@@ -1,6 +1,7 @@
 import Message from "../components/Message/Message";
 import { fetchMessage } from "./api";
 import { qs } from "./dom";
+import dayjs from "dayjs";
 
 //Отправка сообщения 
 export default async function sendMessage(event, type) {
@@ -8,11 +9,14 @@ export default async function sendMessage(event, type) {
 
     try {
         const { currentType, messageContent } = checkMessageType(event, type);
+
         if (!messageContent) return;
+        const messageTime = getMessageTime();
+        console.log(messageTime);
 
-        await fetchMessage(currentType, messageContent);
+        await fetchMessage(currentType, messageContent, messageTime);
 
-        const message = new Message(currentType, messageContent);
+        const message = new Message(currentType, messageContent, messageTime);
         const messageItem = message.createMessage();
 
         const chatArea = qs('.chat-area');
@@ -47,4 +51,9 @@ function checkMessageType(event, type = null) {
     }
 
     return { currentType, messageContent };
+}
+
+function getMessageTime(){
+   const time = dayjs().format('HH:mm');
+   return time;
 }

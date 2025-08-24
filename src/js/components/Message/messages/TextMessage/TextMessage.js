@@ -3,14 +3,15 @@ import { createElement } from "../../../../utils/dom";
 import MessageTime from "../MessageTime/MessageTime";
 
 export default class TextMessage {
-    constructor(content) {
+    constructor(content, time) {
         this.content = content;
+        this.time = time
     }
 
     //Отрисовка сообщения
     render() {
         const messageBlock = createElement('div', ['message-block']);
-        const messageTime = MessageTime();
+        const messageTime = MessageTime(this.time);
 
         const messageContent = this._linkify(this.content);
 
