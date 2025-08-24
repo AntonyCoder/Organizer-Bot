@@ -3,6 +3,7 @@ import { createElement } from '../../utils/dom';
 import loadData from '../../utils/api';
 import Message from '../Message/Message';
 import showOverlay from '../../utils/dragDropMessage';
+import { renderMessageIds } from '../../utils/messageStore';
 
 export default class ChatArea {
     constructor() {
@@ -13,7 +14,7 @@ export default class ChatArea {
         this.limit = 10;
         this.loading = false;
 
-        this._onScroll = this._onScroll.bind(this)
+        this._onScroll = this._onScroll.bind(this);
     }
 
     //Получение элемента chatArea
@@ -31,6 +32,7 @@ export default class ChatArea {
         return this.chatArea;
     }
 
+    //Обработчик события скрола до верха страницы
     _onScroll() {
         if (this.chatArea.scrollTop === 0 && !this.loading) {
             this._loadMessage();
@@ -50,21 +52,24 @@ export default class ChatArea {
             this.offset += messages.length;
 
             messages.reverse().forEach(item => {
+                if (renderMessageIds.has(item.id)) return;
                 const message = new Message(item);
                 const messageItem = message.createMessage();
                 this.chatArea.prepend(messageItem);
+
+                renderMessageIds.add(item.id);
             })
 
             if (this.offset === messages.length) {
                 setTimeout(() => {
                     this.chatArea.scrollTop = this.chatArea.scrollHeight;
                 }, 1000);
-            } 
+            }
 
 
         } catch (error) {
             console.error('Ошибка отрисовки сообщений при перезагрузке', error);
-        } finally{
+        } finally {
             this.loading = false;
         }
     }

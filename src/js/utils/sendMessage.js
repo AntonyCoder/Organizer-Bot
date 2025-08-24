@@ -3,6 +3,7 @@ import { fetchMessage } from "./api";
 import { qs } from "./dom";
 import dayjs from "dayjs";
 import { faker } from '@faker-js/faker';
+import { renderMessageIds } from "./messageStore";
 
 //Отправка сообщения 
 export default async function sendMessage(event, type) {
@@ -19,6 +20,8 @@ export default async function sendMessage(event, type) {
         const chatArea = qs('.chat-area');
 
         chatArea.appendChild(messageItem);
+
+        renderMessageIds.add(newMessage.id);
         setTimeout(() => {
             chatArea.scrollTop = chatArea.scrollHeight;
         }, 100);
@@ -65,8 +68,10 @@ function getMessageTime() {
     return time;
 }
 
+//Создание объекта сообщения с параметрами
 function getMessage(type, messageContent) {
     const time = getMessageTime();
+
     const message = {
         id: faker.string.uuid(),
         type,
