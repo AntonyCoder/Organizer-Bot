@@ -2,19 +2,18 @@ import Message from "../components/Message/Message";
 import { fetchMessage } from "./api";
 import { qs } from "./dom";
 import dayjs from "dayjs";
+import { faker } from '@faker-js/faker';
 
 //Отправка сообщения 
 export default async function sendMessage(event, type) {
-
     try {
-        const { currentType, messageContent } = checkMessageType(event, type);
+        const newMessage = checkMessageType(event, type);
+        if (!newMessage.messageContent) return;
 
-        if (!messageContent) return;
-        const messageTime = getMessageTime();
+        await fetchMessage(newMessage);
+        console.log(newMessage);
 
-        await fetchMessage(currentType, messageContent, messageTime);
-
-        const message = new Message(currentType, messageContent, messageTime);
+        const message = new Message(newMessage);
         const messageItem = message.createMessage();
 
         const chatArea = qs('.chat-area');
@@ -27,7 +26,6 @@ export default async function sendMessage(event, type) {
     } catch (error) {
         console.error('Ошибка при отправке сообщения:', error);
     }
-
 }
 
 //Проверка типа сообщения и возвращение соответствующего messageContent и currentType
@@ -56,11 +54,26 @@ function checkMessageType(event, type = null) {
         }
     }
 
-    return { currentType, messageContent };
+    const message = getMessage(currentType, messageContent);
+
+    return message;
 }
 
 //Получение времени отправки сообщения
 function getMessageTime() {
     const time = dayjs().format('HH:mm');
     return time;
+}
+
+function getMessage(type, messageContent) {
+    const time = getMessageTime();
+    const message = {
+        id: faker.string.uuid(),
+        type,
+        messageContent,
+        time,
+        name: messageContent.name || null
+    }
+
+    return message;
 }

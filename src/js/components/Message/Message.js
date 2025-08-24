@@ -3,14 +3,14 @@ import ImageMessage from './messages/ImageMessage/ImageMessage';
 import TextMessage from './messages/TextMessage/TextMessage';
 import AudioMessage from './messages/AudioMessage/AudioMessage';
 import VideoMessage from './messages/VideoMessage/VideoMessage';
-import FileMessage from './messages/FileMessage/FileMessage';
+import FileMessage from './messages/FileMessage.js/FileMessage';
 
 export default class Message {
-    constructor(type, content, time, name) {
-        this.type = type;
-        this.content = content;
-        this.time = time;
-        this.name = name;
+    constructor(newMessage) {
+        this.type = newMessage.type;
+        this.content = newMessage.messageContent;
+        this.time = newMessage.time;
+        this.name = newMessage.name;
     }
 
     //Создание сообщения в зависимости от его типа
