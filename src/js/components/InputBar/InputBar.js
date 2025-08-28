@@ -5,7 +5,7 @@ import microphone from '../../../assets/svg/microphone.svg';
 import media from '../../../assets/img/media.png';
 import document from '../../../assets/img/document.png';
 import geolocation from '../../../assets/img/geolocation.png';
-import { createElement } from '../../utils/dom';
+import { createElement } from '../../helpers/dom';
 
 export default class InputBar {
     constructor() {

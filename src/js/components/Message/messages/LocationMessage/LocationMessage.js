@@ -1,5 +1,5 @@
 import './LocationMessage.scss';
-import { createElement } from "../../../../utils/dom";
+import { createElement } from "../../../../helpers/dom";
 import MessageTime from "../MessageTime/MessageTime";
 import getPosition from '../../../../utils/mapLocation/getPosition';
 import {faker} from '@faker-js/faker';

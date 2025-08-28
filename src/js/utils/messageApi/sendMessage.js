@@ -1,10 +1,10 @@
-import Message from "../components/Message/Message";
+import Message from "../../components/Message/Message";
 import { fetchMessage } from "./api";
-import { qs } from "./dom";
+import { qs } from "../../helpers/dom";
 import dayjs from "dayjs";
 import { faker } from '@faker-js/faker';
 import { renderMessageIds } from "./messageStore";
-import requestPosition from "./mapLocation/requestPosition";
+import requestPosition from "../mapLocation/requestPosition";
 
 //Отправка сообщения 
 export default async function sendMessage(event, type) {
@@ -43,6 +43,7 @@ async function checkMessageType(event, type = null) {
     } else {
         event.preventDefault();
 
+        //В том случае если тип текст
         if (type === 'text') {
             const messageInput = event.target.elements.message;
             messageContent = messageInput.value.trim();
@@ -51,12 +52,14 @@ async function checkMessageType(event, type = null) {
             event.target.reset();
         }
 
+        //В том случае если это файл или медиа
         if (type === null) {
             messageContent = event.target.files[0];
             currentType = messageContent.type.split('/')[0];
             event.target.value = '';
         }
 
+        //Если это геолокация
         if (type === 'location') {
             try {
                 const [lat, lon] = await requestPosition();

@@ -1,9 +1,9 @@
 import './ChatArea.scss';
-import { createElement } from '../../utils/dom';
-import loadData from '../../utils/api';
+import { createElement } from '../../helpers/dom';
+import loadData from '../../utils/messageApi/api';
 import Message from '../Message/Message';
-import showOverlay from '../../utils/dragDropMessage';
-import { renderMessageIds } from '../../utils/messageStore';
+import showOverlay from '../../utils/messageApi/dragDropMessage';
+import { renderMessageIds } from '../../utils/messageApi/messageStore';
 
 export default class ChatArea {
     constructor() {

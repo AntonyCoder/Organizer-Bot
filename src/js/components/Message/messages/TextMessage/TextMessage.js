@@ -1,5 +1,5 @@
 import './TextMessage.scss';
-import { createElement } from "../../../../utils/dom";
+import { createElement } from "../../../../helpers/dom";
 import MessageTime from "../MessageTime/MessageTime";
 
 export default class TextMessage {

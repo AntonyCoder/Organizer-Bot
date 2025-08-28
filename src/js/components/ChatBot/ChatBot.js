@@ -1,10 +1,9 @@
 import './ChatBot.scss';
-import { createElement, qs } from '../../utils/dom';
+import { createElement, qs } from '../../helpers/dom';
 import Header from '../header/Header';
 import ChatArea from '../chatArea/ChatArea';
 import InputBar from '../InputBar/InputBar';
-import sendMessage from '../../utils/sendMessage';
-import getPosition from '../../utils/mapLocation/getPosition';
+import sendMessage from '../../utils/messageApi/sendMessage';
 
 export default class ChatBot {
     constructor(container) {

@@ -1,7 +1,7 @@
 import './MessageTime.scss';
 import doubleCheck from '../../../../../assets/svg/double-check.svg';
 
-import { createElement } from '../../../../utils/dom';
+import { createElement } from '../../../../helpers/dom';
 
 export default function MessageTime(time){
     // const time = dayjs().format('HH:mm');

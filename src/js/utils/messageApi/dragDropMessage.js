@@ -1,4 +1,4 @@
-import { createElement, qs } from "./dom";
+import { createElement, qs } from "../../helpers/dom";
 import sendMessage from "./sendMessage";
 
 //Функция управления отображением затемненного фона

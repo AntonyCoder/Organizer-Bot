@@ -1,4 +1,4 @@
-import { createElement } from "../../../../utils/dom";
+import { createElement } from "../../../../helpers/dom";
 import MessageTime from "../MessageTime/MessageTime";
 import './FileMessage.scss';
 import file from './../../../../../assets/svg/file-icon.svg';

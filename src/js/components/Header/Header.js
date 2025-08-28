@@ -1,8 +1,8 @@
 import './Header.scss';
 import search from '../../../assets/svg/search.svg';
 import sidebar from '../../../assets/svg/sidebar.svg';
-import { createElement } from '../../utils/dom';
-import toggleClassName from '../../utils/toggleClassName';
+import { createElement } from '../../helpers/dom';
+import toggleClassName from '../../helpers/toggleClassName';
 
 export default class Header {
 
