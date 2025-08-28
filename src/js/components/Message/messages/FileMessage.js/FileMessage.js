@@ -52,7 +52,7 @@ export default class FileMessage {
             message.textContent = fileName;
         }
     }
-//Ограничение имени файла
+//Ограничение длины имени файла
     _limitName(name){
         if(name.length > 30){
             return name.slice(0, 30) + '...';

@@ -1,6 +1,6 @@
 @use '../../../assets/css/variables.scss' as *;
 
-.message-block{
+.message-block {
     display: flex;
     flex-direction: column;
 
@@ -8,7 +8,11 @@
     padding: 10px;
     max-width: 60%;
     min-width: 100px;
-    
+
     background-color: $message-bg;
     margin-left: auto;
+}
+
+.message-block:has(.message-location) {
+    max-width: 100%;
 }

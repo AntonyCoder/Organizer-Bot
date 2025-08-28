@@ -1,0 +1,15 @@
+.message-location {
+    display: flex;
+    width: 450px;
+    height: 300px;
+    border-radius: 10px;
+}
+
+.leaflet-bottom {
+    display: none;
+}
+@media(max-width: 500px){
+    .message-location{
+        width: 300px;
+    }
+}

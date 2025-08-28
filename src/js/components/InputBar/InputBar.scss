@@ -1,3 +1,5 @@
+@use '../../../assets/css/variables.scss' as *;
+
 .input-bar {
     padding: 15px;
 }
@@ -15,22 +17,71 @@
     cursor: pointer;
 }
 
-.add-file-input {
-    display: none;
-}
-
 .message-input {
     flex: 1;
     border: none;
     height: 20px;
 
     font-size: 16px;
+    z-index: 10;
 
     &:focus {
         outline: none
+    }
+
+    &:hover+.attachment-block {
+        display: none;
     }
 }
 
 .add-smile-button {
     margin-left: auto;
+}
+
+.attachment-block {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+
+    bottom: 0px;
+    left: 10px;
+    transition: display 1s ease;
+    z-index: 9;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.attachment-list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    margin-bottom: 60px;
+
+    background-color: $white-color;
+    border-radius: 10px;
+}
+
+.add-file-label {
+    z-index: 10;
+}
+
+.add-file-label:hover+.attachment-block {
+    opacity: 1;
+    visibility: visible;
+}
+
+.attachment-block:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.attechment-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 10px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $message-second;
+    }
 }

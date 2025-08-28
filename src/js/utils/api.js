@@ -15,7 +15,7 @@ export default async function loadData(offset, limit) {
 export async function fetchMessage(newMessage) {
     try {
         //Если это текстовое сообщение
-        if (newMessage.type === 'text') {
+        if (newMessage.type === 'text' || newMessage.type === 'location') {
             await fetch('http://localhost:3000/messages', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },

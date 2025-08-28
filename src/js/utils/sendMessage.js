@@ -4,15 +4,15 @@ import { qs } from "./dom";
 import dayjs from "dayjs";
 import { faker } from '@faker-js/faker';
 import { renderMessageIds } from "./messageStore";
+import requestPosition from "./mapLocation/requestPosition";
 
 //Отправка сообщения 
 export default async function sendMessage(event, type) {
     try {
-        const newMessage = checkMessageType(event, type);
-        if (!newMessage.messageContent) return;
+        const newMessage = await checkMessageType(event, type);
+        if (!newMessage) return;
 
         await fetchMessage(newMessage);
-        console.log(newMessage);
 
         const message = new Message(newMessage);
         const messageItem = message.createMessage();
@@ -22,6 +22,7 @@ export default async function sendMessage(event, type) {
         chatArea.appendChild(messageItem);
 
         renderMessageIds.add(newMessage.id);
+
         setTimeout(() => {
             chatArea.scrollTop = chatArea.scrollHeight;
         }, 100);
@@ -32,7 +33,7 @@ export default async function sendMessage(event, type) {
 }
 
 //Проверка типа сообщения и возвращение соответствующего messageContent и currentType
-function checkMessageType(event, type = null) {
+async function checkMessageType(event, type = null) {
     let messageContent;
     let currentType;
 
@@ -55,7 +56,20 @@ function checkMessageType(event, type = null) {
             currentType = messageContent.type.split('/')[0];
             event.target.value = '';
         }
+
+        if (type === 'location') {
+            try {
+                const [lat, lon] = await requestPosition();
+                currentType = type;
+                messageContent = { lat, lon };
+            } catch (err) {
+                alert("Предоставьте доступ к вашему местоположению");
+                console.error(err);
+                return null;
+            }
+        }
     }
+    if (!messageContent) return null;
 
     const message = getMessage(currentType, messageContent);
 

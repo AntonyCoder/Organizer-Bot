@@ -4,6 +4,7 @@ import TextMessage from './messages/TextMessage/TextMessage';
 import AudioMessage from './messages/AudioMessage/AudioMessage';
 import VideoMessage from './messages/VideoMessage/VideoMessage';
 import FileMessage from './messages/FileMessage.js/FileMessage';
+import LocationMessage from './messages/LocationMessage/LocationMessage';
 
 export default class Message {
     constructor(newMessage) {
@@ -45,6 +46,13 @@ export default class Message {
 
         if (this.type === 'application') {
             const newMessage = new FileMessage(this.content, this.time, this.name);
+            const messageBlock = newMessage.render();
+
+            return messageBlock;
+        }
+
+        if (this.type === 'location') {
+            const newMessage = new LocationMessage(this.content, this.time);
             const messageBlock = newMessage.render();
 
             return messageBlock;
