@@ -4,15 +4,17 @@ import './FileMessage.scss';
 import file from './../../../../../assets/svg/file-icon.svg';
 
 export default class FileMessage {
-    constructor(content, time, name) {
+    constructor(id, content, time, name) {
         this.content = content;
         this.time = time;
         this.name = name;
+        this.id = id;
     }
 
     //Отрисовка сообщения
     render() {
         const messageBlock = createElement('div', ['message-block', 'file']);
+        messageBlock.setAttribute('data-id', this.id);
         const messageTime = MessageTime(this.time);
 
         const messageFile = createElement('a', ['message-file']);

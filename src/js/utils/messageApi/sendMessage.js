@@ -20,8 +20,8 @@ export default async function sendMessage(event, type) {
         const chatArea = qs('.chat-area');
 
         chatArea.appendChild(messageItem);
-
-        renderMessageIds.add(newMessage.id);
+        console.log(newMessage);
+        renderMessageIds.set(newMessage.id, newMessage);
 
         setTimeout(() => {
             chatArea.scrollTop = chatArea.scrollHeight;

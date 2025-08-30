@@ -12,47 +12,48 @@ export default class Message {
         this.content = newMessage.messageContent;
         this.time = newMessage.time;
         this.name = newMessage.name;
+        this.id = newMessage.id;
     }
 
     //Создание сообщения в зависимости от его типа
     createMessage() {
         if (this.type === 'text') {
-            const newMessage = new TextMessage(this.content, this.time);
+            const newMessage = new TextMessage(this.id, this.content, this.time);
             const messageBlock = newMessage.render();
 
             return messageBlock;
         }
 
         if (this.type === 'image') {
-            const newMessage = new ImageMessage(this.content, this.time);
+            const newMessage = new ImageMessage(this.id, this.content, this.time);
             const messageBlock = newMessage.render();
 
             return messageBlock;
         }
 
         if (this.type === 'audio') {
-            const newMessage = new AudioMessage(this.content, this.time);
+            const newMessage = new AudioMessage(this.id, this.content, this.time);
             const messageBlock = newMessage.render();
 
             return messageBlock;
         }
 
         if (this.type === 'video') {
-            const newMessage = new VideoMessage(this.content, this.time);
+            const newMessage = new VideoMessage(this.id, this.content, this.time);
             const messageBlock = newMessage.render();
 
             return messageBlock;
         }
 
         if (this.type === 'application') {
-            const newMessage = new FileMessage(this.content, this.time, this.name);
+            const newMessage = new FileMessage(this.id, this.content, this.time, this.name);
             const messageBlock = newMessage.render();
 
             return messageBlock;
         }
 
         if (this.type === 'location') {
-            const newMessage = new LocationMessage(this.content, this.time);
+            const newMessage = new LocationMessage(this.id, this.content, this.time);
             const messageBlock = newMessage.render();
 
             return messageBlock;

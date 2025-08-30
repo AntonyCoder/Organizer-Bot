@@ -4,6 +4,7 @@ import loadData from '../../utils/messageApi/api';
 import Message from '../Message/Message';
 import showOverlay from '../../utils/messageApi/dragDropMessage';
 import { renderMessageIds } from '../../utils/messageApi/messageStore';
+import messageActions from '../../utils/messageActions/messageActions';
 
 export default class ChatArea {
     constructor() {
@@ -27,7 +28,8 @@ export default class ChatArea {
         this.chatArea = createElement('div', ['chat-area']);
         this._loadMessage();
 
-        this.chatArea.addEventListener('scroll', this._onScroll)
+        this.chatArea.addEventListener('scroll', this._onScroll);
+        this.chatArea.addEventListener('contextmenu', messageActions)
 
         return this.chatArea;
     }
@@ -57,7 +59,7 @@ export default class ChatArea {
                 const messageItem = message.createMessage();
                 this.chatArea.prepend(messageItem);
 
-                renderMessageIds.add(item.id);
+                renderMessageIds.set(item.id, item);
             })
 
             if (this.offset === messages.length) {

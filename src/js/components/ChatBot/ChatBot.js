@@ -13,6 +13,7 @@ export default class ChatBot {
 
         this.container = container;
         this._init();
+
     }
 
     //Инициализация

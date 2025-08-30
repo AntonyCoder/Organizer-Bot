@@ -3,14 +3,16 @@ import MessageTime from "../MessageTime/MessageTime";
 import './ImageMessage.scss';
 
 export default class ImageMessage {
-    constructor(content, time) {
+    constructor(id, content, time) {
         this.content = content;
         this.time = time;
+        this.id = id;
     }
 
     //Отрисовка сообщения
     render() {
         const messageBlock = createElement('div', ['message-block']);
+        messageBlock.setAttribute('data-id', this.id);
         const messageTime = MessageTime(this.time);
 
         const messageImage = createElement('img', ['message-image']);

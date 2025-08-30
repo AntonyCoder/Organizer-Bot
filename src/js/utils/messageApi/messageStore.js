@@ -1,1 +1,1 @@
-export const renderMessageIds = new Set();
+export const renderMessageIds = new Map();

@@ -1,5 +1,5 @@
 import L from 'leaflet';
-import "leaflet/dist/leaflet.scss";
+import "leaflet/dist/leaflet.css";
 
 delete L.Icon.Default.prototype._getIconUrl;
 
@@ -10,7 +10,6 @@ L.Icon.Default.mergeOptions({
 });
 
 export default function getMap(mapId, position, tooltip) {
-
     const map = L.map(mapId).setView(position, 15);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -19,6 +18,4 @@ export default function getMap(mapId, position, tooltip) {
     }).addTo(map)
 
     L.marker(position).addTo(map).bindPopup(tooltip).openPopup();
-
-
 }
