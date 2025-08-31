@@ -11,8 +11,14 @@
 
     background-color: $message-bg;
     margin-left: auto;
+    transition: background-color 1s ease, color 1s ease;
 }
 
 .message-block:has(.message-location) {
     max-width: 100%;
+}
+
+.message-block.highlight {
+    background-color: $highlight;
+    color: $white-color;
 }

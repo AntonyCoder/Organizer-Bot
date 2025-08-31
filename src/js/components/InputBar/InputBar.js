@@ -13,7 +13,7 @@ export default class InputBar {
     }
 
     //Получение элемента 
-    getElement() {
+    init() {
         return this.inputBar;
     }
 

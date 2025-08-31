@@ -1,14 +1,17 @@
 import './ChatArea.scss';
-import { createElement } from '../../helpers/dom';
+import { createElement, qs } from '../../helpers/dom';
 import loadData from '../../utils/messageApi/api';
 import Message from '../Message/Message';
 import showOverlay from '../../utils/messageApi/dragDropMessage';
 import { renderMessageIds } from '../../utils/messageApi/messageStore';
 import messageActions from '../../utils/messageActions/messageActions';
+import ContextMenu from '../ContextMenu/ContextMenu';
+import PinMessage from '../PinMessage/PinMessage';
+import { getPinnedMessage } from '../../utils/messageApi/messageStore';
 
 export default class ChatArea {
     constructor() {
-        showOverlay();
+        showOverlay();//Отображение затемненного фона при перетаскивании файла
 
         this.chatArea = null;
         this.offset = 0;
@@ -16,22 +19,46 @@ export default class ChatArea {
         this.loading = false;
 
         this._onScroll = this._onScroll.bind(this);
+
+        this.contextMenu = new ContextMenu(this._setPinMessage.bind(this));//Передаем callback который сработает при нажатии на кнопку закрепить и передаст обратно информацию о сообщении
+        this.pinMessage = new PinMessage();
     }
 
-    //Получение элемента chatArea
-    getElement() {
-        return this._renderChatArea();
+    //Инициализация компонента
+    init() {
+        this.chatArea = this._renderChatArea();
+        this._attachEvents();
+
+        return this.chatArea;
+    }
+
+    //Callback который сработает при нажатии на кнопку закрепить сообщение и создаст закрепленное сообщение
+    _setPinMessage(messageData) {
+        if (getPinnedMessage()) return
+
+        const pinElement = this.pinMessage.createPinMessage(messageData);
+        
+        this.chatArea.append(pinElement);
     }
 
     //Отрисовка элемента
     _renderChatArea() {
-        this.chatArea = createElement('div', ['chat-area']);
+        const element = createElement('div', ['chat-area']);
         this._loadMessage();
 
-        this.chatArea.addEventListener('scroll', this._onScroll);
-        this.chatArea.addEventListener('contextmenu', messageActions)
+        const pinned = getPinnedMessage();
+        if (pinned) {
+            const pinElement = this.pinMessage.createPinMessage(pinned);
+            element.append(pinElement);
+        }
 
-        return this.chatArea;
+        return element;
+    }
+
+    //Подключаем обработчики событий
+    _attachEvents() {
+        this.chatArea.addEventListener('scroll', this._onScroll);
+        this.chatArea.addEventListener('contextmenu', (e) => messageActions(e, this.contextMenu))
     }
 
     //Обработчик события скрола до верха страницы
@@ -67,7 +94,6 @@ export default class ChatArea {
                     this.chatArea.scrollTop = this.chatArea.scrollHeight;
                 }, 1000);
             }
-
 
         } catch (error) {
             console.error('Ошибка отрисовки сообщений при перезагрузке', error);

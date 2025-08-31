@@ -6,7 +6,7 @@ import toggleClassName from '../../helpers/toggleClassName';
 
 export default class Header {
 
-    getElement() {
+    init() {
         return this._renderHeader();
     }
 

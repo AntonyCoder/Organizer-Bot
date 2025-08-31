@@ -45,13 +45,13 @@ export default class ChatBot {
         const chatBot = createElement('div', ['chat-bot']);
 
         const header = new Header();
-        const headerElement = header.getElement();
+        const headerElement = header.init();
 
         const chatArea = new ChatArea();
-        this.chatAreaElement = chatArea.getElement();
+        this.chatAreaElement = chatArea.init();
 
         const inputBar = new InputBar();
-        const inputBarElement = inputBar.getElement();
+        const inputBarElement = inputBar.init();
 
         chatBot.append(headerElement, this.chatAreaElement, inputBarElement);
 

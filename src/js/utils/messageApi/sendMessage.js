@@ -20,7 +20,7 @@ export default async function sendMessage(event, type) {
         const chatArea = qs('.chat-area');
 
         chatArea.appendChild(messageItem);
-        console.log(newMessage);
+
         renderMessageIds.set(newMessage.id, newMessage);
 
         setTimeout(() => {
