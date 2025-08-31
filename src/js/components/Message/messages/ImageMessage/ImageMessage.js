@@ -1,5 +1,6 @@
 import { createElement } from "../../../../helpers/dom";
 import MessageTime from "../MessageTime/MessageTime";
+import setUrl from "../../messageScripts/setUrl";
 import './ImageMessage.scss';
 
 export default class ImageMessage {
@@ -17,17 +18,10 @@ export default class ImageMessage {
 
         const messageImage = createElement('img', ['message-image']);
         
-        this._setUrl(messageImage, this.content)
+        setUrl(messageImage, this.content)
 
         messageBlock.append(messageImage, messageTime);
         return messageBlock;
     }
 
-    _setUrl(message, path){
-        if (path instanceof File) {
-            message.src = URL.createObjectURL(path);
-        } else if (typeof path === 'string') {
-            message.src = `http://localhost:3000${path}`;
-        }
-    }
 }

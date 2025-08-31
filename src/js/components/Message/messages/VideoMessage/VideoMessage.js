@@ -1,5 +1,6 @@
 import { createElement } from "../../../../helpers/dom";
 import MessageTime from "../MessageTime/MessageTime";
+import setUrl from "../../messageScripts/setUrl";
 import './VideoMessage.scss';
 
 export default class AudioMessage {
@@ -18,17 +19,9 @@ export default class AudioMessage {
         const messageVideo = createElement('video', ['message-video']);
         messageVideo.controls = true;
 
-        this._setUrl(messageVideo, this.content);
+        setUrl(messageVideo, this.content);
 
         messageBlock.append(messageVideo, messageTime);
         return messageBlock;
-    }
-
-    _setUrl(message, path) {
-        if (path instanceof File) {
-            message.src = URL.createObjectURL(path);
-        } else if (typeof path === 'string') {
-            message.src = `http://localhost:3000${path}`;
-        }
     }
 }

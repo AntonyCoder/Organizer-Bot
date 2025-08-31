@@ -2,6 +2,7 @@ import './PinMessage.scss';
 import closeIcon from '../../../assets/img/close-icon.png';
 import { createElement, qs } from '../../helpers/dom';
 import { setPinnedMessage, clearPinnedMessage } from '../../utils/messageApi/messageStore';
+import limitContent from '../../helpers/limitContent';
 
 export default class PinMessage {
     constructor() {
@@ -40,7 +41,9 @@ export default class PinMessage {
         let pinMessageText;
 
         if (msg.type === 'text') {
-            pinMessageText = createElement('p', ['pin-message-content'], msg.messageContent);
+            pinMessageText = createElement('p', ['pin-message-content'], limitContent(msg.messageContent, 100));
+        } else if (msg.type === 'application') {
+            pinMessageText = createElement('p', ['pin-message-content'], limitContent(msg.name, 100));
         } else {
             pinMessageText = createElement('p', ['pin-message-content'], msg.type);
         }

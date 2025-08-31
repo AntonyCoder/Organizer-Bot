@@ -2,6 +2,8 @@ import { createElement } from "../../../../helpers/dom";
 import MessageTime from "../MessageTime/MessageTime";
 import './FileMessage.scss';
 import file from './../../../../../assets/svg/file-icon.svg';
+import limitName from "../../../../helpers/limitContent";
+import setUrl from "../../messageScripts/setUrl";
 
 export default class FileMessage {
     constructor(id, content, time, name) {
@@ -28,37 +30,23 @@ export default class FileMessage {
 
         fileIconWrapper.appendChild(fileIcon);
 
-        this._setUrl(messageFile, this.content);
+        setUrl(messageFile, this.content);
 
         messageFile.prepend(fileIconWrapper)
 
         messageBlock.append(messageFile, messageTime);
         return messageBlock;
     }
-//Установка URL файла
-    _setUrl(message, path){
-        if (path instanceof File) {
-            message.href = URL.createObjectURL(path);
-        } else if (typeof path === 'string') {
-            message.href = `http://localhost:3000${path}`;
-        }
-    }
 
     //Установка имени файла
     _setName(message, content, fileName){
         if (!content.name) {
-            fileName = this._limitName(fileName);
+            fileName = limitName(fileName);
             message.textContent = fileName;
         } else {
-            const fileName = this._limitName(content.name);
+            const fileName = limitName(content.name);
             message.textContent = fileName;
         }
     }
-//Ограничение длины имени файла
-    _limitName(name){
-        if(name.length > 30){
-            return name.slice(0, 30) + '...';
-        }
-        return name;
-    }
+
 }
