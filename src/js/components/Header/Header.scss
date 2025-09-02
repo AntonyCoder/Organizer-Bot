@@ -1,0 +1,40 @@
+@use '../../../assets/css/variables.scss' as *;
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px;
+}
+
+.service-block {
+    display: flex;
+    align-items: center;
+}
+
+/* Search */
+.header-search-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.header-search {
+    border: none;
+    width: 0px;
+    height: 22px;
+}
+
+.header-search:focus {
+    outline: none;
+}
+
+.header-search-icon {
+    transform: translateX(-20px);
+    cursor: pointer;
+}
+
+.search-active {
+    border-bottom: 1px solid $secondary-color;
+    width: 150px;
+}

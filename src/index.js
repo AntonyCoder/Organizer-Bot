@@ -1,3 +1,3 @@
-import "./css/style.css";
+import "./assets/css/style.scss";
 
 import "./js/app";

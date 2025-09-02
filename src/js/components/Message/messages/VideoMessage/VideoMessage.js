@@ -1,0 +1,27 @@
+import { createElement } from "../../../../helpers/dom";
+import MessageTime from "../MessageTime/MessageTime";
+import setUrl from "../../messageScripts/setUrl";
+import './VideoMessage.scss';
+
+export default class AudioMessage {
+    constructor(id, content, time) {
+        this.content = content;
+        this.time = time;
+        this.id = id;
+    }
+
+    //Отрисовка сообщения
+    render() {
+        const messageBlock = createElement('div', ['message-block', 'video']);
+        messageBlock.setAttribute('data-id', this.id);
+        const messageTime = MessageTime(this.time);
+
+        const messageVideo = createElement('video', ['message-video']);
+        messageVideo.controls = true;
+
+        setUrl(messageVideo, this.content);
+
+        messageBlock.append(messageVideo, messageTime);
+        return messageBlock;
+    }
+}

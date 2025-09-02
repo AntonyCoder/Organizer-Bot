@@ -1,0 +1,49 @@
+.chat-area {
+    width: 100%;
+    flex: 1;
+    background-image: url('../../../assets/img/bg-image.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 60px 10px 10px;
+
+    overflow-y: scroll;
+    overflow-x: hidden;
+    position: relative;
+
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 3px;
+    }
+}
+
+.chat-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+}
+
+.chat-overlay-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 30px;
+    pointer-events: none;
+    z-index: 1000;
+}

@@ -1,0 +1,36 @@
+@use '../../../assets/css/variables.scss' as *;
+
+.context-menu {
+    position: absolute;
+
+    border-radius: 10px;
+    padding: 10px 0;
+
+    background-color: $white-color;
+    z-index: 999;
+
+    opacity: 0;
+    transform: scale(0.95);
+
+    transition: opacity 0.2s ease, transform 0.2s ease;
+
+    &.show {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 5px 40px 5px 5px;
+
+    gap: 5px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $message-second;
+    }
+}

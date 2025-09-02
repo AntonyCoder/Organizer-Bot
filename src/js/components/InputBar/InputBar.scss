@@ -1,0 +1,114 @@
+@use '../../../assets/css/variables.scss' as *;
+
+.input-bar {
+    height: 50px;
+    padding: 0 15px;
+}
+
+.message-form {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.add-file-label {
+    display: flex;
+    align-items: center;
+
+    cursor: pointer;
+}
+
+.message-input {
+    flex: 1;
+    border: none;
+
+    font-size: 16px;
+    z-index: 10;
+
+    resize: none;
+    overflow-y: hidden;
+    min-height: 20px;
+    max-height: 200px;
+    height: auto;
+    line-height: 20px;
+
+    &:focus {
+        outline: none
+    }
+
+    &:hover+.attachment-block {
+        display: none;
+    }
+}
+
+.attachment-block {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+
+    bottom: 0px;
+    left: 10px;
+    transition: display 1s ease;
+    z-index: 9;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.attachment-list {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+    margin-bottom: 60px;
+
+    background-color: $white-color;
+    border-radius: 10px;
+}
+
+.add-file-label {
+    z-index: 10;
+}
+
+.add-file-label:hover+.attachment-block {
+    opacity: 1;
+    visibility: visible;
+}
+
+.attachment-block:hover {
+    opacity: 1;
+    visibility: visible;
+}
+
+.attechment-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 10px;
+
+    &:hover {
+        cursor: pointer;
+        background-color: $message-second;
+    }
+}
+
+.emoji-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.emoji-picker {
+    position: absolute;
+    bottom: 40px;
+    right: -20px;
+    padding-bottom: 20px;
+    box-shadow: none;
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+.emoji-picker.show {
+    opacity: 1;
+}

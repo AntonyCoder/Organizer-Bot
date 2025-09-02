@@ -1,0 +1,101 @@
+import Message from "../../components/Message/Message";
+import { fetchMessage } from "./api";
+import { qs } from "../../helpers/dom";
+import dayjs from "dayjs";
+import { faker } from '@faker-js/faker';
+import { renderMessageIds } from "./messageStore";
+import requestPosition from "../mapLocation/requestPosition";
+
+//Отправка сообщения 
+export default async function sendMessage(event, type) {
+    try {
+        const newMessage = await checkMessageType(event, type);
+        if (!newMessage) return;
+
+        await fetchMessage(newMessage);
+
+        const message = new Message(newMessage);
+        const messageItem = message.createMessage();
+
+        const chatArea = qs('.chat-area');
+
+        chatArea.appendChild(messageItem);
+
+        renderMessageIds.set(newMessage.id, newMessage);
+
+        setTimeout(() => {
+            chatArea.scrollTop = chatArea.scrollHeight;
+        }, 100);
+
+    } catch (error) {
+        console.error('Ошибка при отправке сообщения:', error);
+    }
+}
+
+//Проверка типа сообщения и возвращение соответствующего messageContent и currentType
+async function checkMessageType(event, type = null) {
+    let messageContent;
+    let currentType;
+
+    if (event instanceof File) {
+        messageContent = event;
+        currentType = messageContent.type.split('/')[0];
+    } else {
+        event.preventDefault();
+
+        //В том случае если тип текст
+        if (type === 'text') {
+            const messageInput = event.target.elements.message;
+            messageContent = messageInput.value.trim();
+            currentType = type;
+
+            event.target.reset();
+        }
+
+        //В том случае если это файл или медиа
+        if (type === null) {
+            messageContent = event.target.files[0];
+            currentType = messageContent.type.split('/')[0];
+            event.target.value = '';
+        }
+
+        //Если это геолокация
+        if (type === 'location') {
+            try {
+                const [lat, lon] = await requestPosition();
+                currentType = type;
+                messageContent = { lat, lon };
+            } catch (err) {
+                alert("Предоставьте доступ к вашему местоположению");
+                console.error(err);
+                return null;
+            }
+        }
+    }
+    if (!messageContent) return null;
+
+    const message = getMessage(currentType, messageContent);
+
+    return message;
+}
+
+//Получение времени отправки сообщения
+function getMessageTime() {
+    const time = dayjs().format('HH:mm');
+    return time;
+}
+
+//Создание объекта сообщения с параметрами
+function getMessage(type, messageContent) {
+    const time = getMessageTime();
+
+    const message = {
+        id: faker.string.uuid(),
+        type,
+        messageContent,
+        time,
+        name: messageContent.name || null
+    }
+
+    return message;
+}

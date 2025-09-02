@@ -1,0 +1,9 @@
+@use '../../../../../assets/css/variables.scss' as *;
+
+.message-block.audio{
+    max-width: 95%;
+}
+
+.message-audio::-webkit-media-controls-panel{
+    background-color: $message-bg;
+}

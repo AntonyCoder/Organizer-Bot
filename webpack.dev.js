@@ -3,17 +3,13 @@ const { merge } = require("webpack-merge");
 const common = require("./webpack.common");
 
 module.exports = merge(common, {
-  // Set the mode to development or production
   mode: "development",
-  // Control how source maps are generated
   devtool: "inline-source-map",
-
-  // Spin up a server for quick development
   devServer: {
     static: {
-      directory: "./dist", // Путь к собранным файлам
+      directory: "./dist",
     },
-    port: 9000,             // Должен совпадать с URL в e2e тестах
+    port: 9001,
     historyApiFallback: true,
     open: true,
     compress: true,
@@ -22,13 +18,20 @@ module.exports = merge(common, {
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.scss$/i,
+        use: [
+          'style-loader',
+          'css-loader',
+          'sass-loader',
+        ],
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      }
     ]
   },
   plugins: [
-    // Only update what has changed on hot reload
     new webpack.HotModuleReplacementPlugin(),
   ],
 });
