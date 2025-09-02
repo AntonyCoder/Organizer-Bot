@@ -65,7 +65,7 @@ export default class InputBar {
         mediaInput.type = 'file';
         mediaInput.hidden = true;
         mediaInput.accept = 'image/*, audio/*, video/*';
-        
+
         const photoIcon = createElement('img', ['attechment-icon', 'icon']);
         photoIcon.src = media;
 
@@ -111,11 +111,30 @@ export default class InputBar {
 
     //Создание поля ввода текста
     _createMessageInput() {
-        const messageInput = createElement('input', ['message-input']);
-        messageInput.type = 'text';
+        const messageInput = createElement('textarea', ['message-input']);
         messageInput.placeholder = 'Write a message...';
         messageInput.name = 'message';
         messageInput.autocomplete = 'off';
+        messageInput.rows = 1;
+
+        messageInput.addEventListener('input', () => {
+            messageInput.style.height = 'auto';
+            messageInput.style.height = `${messageInput.scrollHeight}px`;
+
+            if(messageInput.scrollHeight > 200){
+                messageInput.style.overflowY = 'auto';
+            } else{
+                messageInput.style.overflowY = 'hidden';
+            }
+        })
+
+        messageInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                messageInput.form.requestSubmit();
+                messageInput.style.height = 'auto';
+            }
+        })
 
         return messageInput;
     }

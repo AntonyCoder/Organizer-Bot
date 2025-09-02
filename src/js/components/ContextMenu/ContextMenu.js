@@ -20,7 +20,7 @@ export default class ContextMenu {
 
         this.setOrientation(this.contextMenu, event);
 
-        this.pinButton = qs('.pin-button');
+        this.pinButton = qs('.context-menu-item');
         this.pinButton.addEventListener('click', () => this._onPinButton(targetMessage))
 
         requestAnimationFrame(() => {

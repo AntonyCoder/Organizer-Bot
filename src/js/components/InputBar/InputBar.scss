@@ -20,10 +20,16 @@
 .message-input {
     flex: 1;
     border: none;
-    height: 20px;
-
+    
     font-size: 16px;
     z-index: 10;
+
+    resize: none;
+    overflow-y: hidden;
+    min-height: 20px;
+    max-height: 200px;
+    height: auto;
+    line-height: 20px;
 
     &:focus {
         outline: none

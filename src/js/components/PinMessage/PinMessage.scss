@@ -1,6 +1,6 @@
 @use '../../../assets/css/variables.scss' as *;
 
-.pin-message-wrapper{
+.pin-message-wrapper {
     position: fixed;
     top: 52px;
     left: 0;
@@ -13,24 +13,25 @@
     display: flex;
 }
 
-.pin-block{
+.pin-block {
     display: flex;
     flex-direction: column;
     gap: 5px;
     padding-left: 5px;
 
     border-left: 4px solid $message-second;
+    cursor: default;
 }
 
-.pin-message-content{
+.pin-message-content {
     font-size: 14px;
     color: $secondary-color;
 }
 
-.unpin-button{
+.unpin-button {
     margin-left: auto;
 }
 
-.unpin-icon{
+.unpin-icon {
     width: 15px;
 }
