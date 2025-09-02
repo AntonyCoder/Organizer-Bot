@@ -1,7 +1,8 @@
 @use '../../../assets/css/variables.scss' as *;
 
 .input-bar {
-    padding: 15px;
+    height: 50px;
+    padding: 0 15px;
 }
 
 .message-form {
@@ -20,7 +21,7 @@
 .message-input {
     flex: 1;
     border: none;
-    
+
     font-size: 16px;
     z-index: 10;
 
@@ -38,10 +39,6 @@
     &:hover+.attachment-block {
         display: none;
     }
-}
-
-.add-smile-button {
-    margin-left: auto;
 }
 
 .attachment-block {
@@ -90,4 +87,28 @@
         cursor: pointer;
         background-color: $message-second;
     }
+}
+
+.emoji-wrapper {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+}
+
+.emoji-picker {
+    position: absolute;
+    bottom: 40px;
+    right: -20px;
+    padding-bottom: 20px;
+    box-shadow: none;
+
+    opacity: 0;
+
+    transition: opacity 0.3s ease;
+}
+
+.emoji-picker.show {
+    opacity: 1;
 }

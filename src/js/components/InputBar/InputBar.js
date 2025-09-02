@@ -5,11 +5,15 @@ import microphone from '../../../assets/svg/microphone.svg';
 import media from '../../../assets/img/media.png';
 import document from '../../../assets/img/document.png';
 import geolocation from '../../../assets/img/geolocation.png';
-import { createElement } from '../../helpers/dom';
+import { createElement, qs } from '../../helpers/dom';
+import { Picker } from 'emoji-mart';
+import data from '@emoji-mart/data';
 
 export default class InputBar {
     constructor() {
         this.inputBar = this._renderInputBar();
+        this._insertEmoji = this._insertEmoji.bind(this);
+        this._hideEmoji = this._hideEmoji.bind(this);
     }
 
     //Получение элемента 
@@ -121,9 +125,9 @@ export default class InputBar {
             messageInput.style.height = 'auto';
             messageInput.style.height = `${messageInput.scrollHeight}px`;
 
-            if(messageInput.scrollHeight > 200){
+            if (messageInput.scrollHeight > 200) {
                 messageInput.style.overflowY = 'auto';
-            } else{
+            } else {
                 messageInput.style.overflowY = 'hidden';
             }
         })
@@ -141,14 +145,56 @@ export default class InputBar {
 
     //Создание кнопки добавления эмодзи
     _createSmileButton() {
+        const emojiWrapper = createElement('div', ['emoji-wrapper']);
+
         const addSmileButton = createElement('button', ['add-smile-button']);
         addSmileButton.type = 'button';
         const smileIcon = createElement('img', ['smile-icon', 'icon']);
         smileIcon.src = smile;
 
         addSmileButton.appendChild(smileIcon);
+        emojiWrapper.append(addSmileButton);
 
-        return addSmileButton;
+        emojiWrapper.addEventListener('mouseenter', (e) => this._insertEmoji(emojiWrapper, e));
+        emojiWrapper.addEventListener('mouseleave', () => this._hideEmoji());
+
+        return emojiWrapper;
+    }
+
+    //Открытие блока с эмодзи
+    _insertEmoji(emojiWrapper) {
+        if (this.emojiPicker) {
+            return
+        }
+
+        this.emojiPicker = new Picker({
+            data,
+            onEmojiSelect: (emoji) => {
+                const input = qs('.message-input');
+                input.value += emoji.native;
+            },
+        })
+
+        this.emojiPicker.classList.add('emoji-picker');
+        setTimeout(() => {
+            this.emojiPicker.classList.add('show');
+        }, 0)
+
+        emojiWrapper.appendChild(this.emojiPicker);
+    }
+
+    //Скрытие блока с эмодзи
+    _hideEmoji() {
+        if (!this.emojiPicker) return;
+        this.emojiPicker.classList.remove('show');
+
+        this.emojiPicker.addEventListener('transitionend', () => {
+            if (this.emojiPicker) {
+                this.emojiPicker.remove();
+                this.emojiPicker = null;
+                return;
+            }
+        }, { once: true })
     }
 
     //Создание кнопки записи голосового сообщения
