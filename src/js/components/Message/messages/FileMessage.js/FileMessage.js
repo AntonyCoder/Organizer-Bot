@@ -30,7 +30,7 @@ export default class FileMessage {
 
         fileIconWrapper.appendChild(fileIcon);
 
-        setUrl(messageFile, this.content);
+        setUrl(messageFile, this.content, 'href');
 
         messageFile.prepend(fileIconWrapper)
 
