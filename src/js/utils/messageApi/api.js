@@ -1,5 +1,5 @@
 //Загрузка сообщений
-const API_URL = 'http://localhost:3000/messages';
+export const API_URL = 'https://server-organizerbot.onrender.com/messages';
 
 export default async function loadData(offset, limit) {
     try {
