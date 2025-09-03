@@ -1,6 +1,8 @@
 import './ContextMenu.scss'
 import { createElement, qs } from '../../helpers/dom';
-import pin from '../../../assets/img/pin.png'
+import pin from '../../../assets/img/pin.png';
+import download from '../../../assets/img/downloadIcon.png';
+import setUrl from '../Message/messageScripts/setUrl';
 
 export default class ContextMenu {
     constructor(onPin) {
@@ -15,7 +17,7 @@ export default class ContextMenu {
 
     //Отображение контекстного меню
     showContextMenu(event, targetMessage) {
-        this.contextMenu = this._createContextMenu();
+        this.contextMenu = this._createContextMenu(targetMessage);
         document.body.append(this.contextMenu);
 
         this.setOrientation(this.contextMenu, event);
@@ -32,29 +34,44 @@ export default class ContextMenu {
     }
 
     //Создание контекстного меню
-    _createContextMenu() {
+    _createContextMenu(targetMessage) {
         const contextMenu = createElement('div', ['context-menu']);
 
-        const contextMenuItem = createElement('div', ['context-menu-item']);
+        const contextMenuItemPin = createElement('div', ['context-menu-item']);
 
         const pinIcon = createElement('img', ['pin-icon', 'icon']);
         pinIcon.src = pin;
-        this.pinButton = createElement('button', ['pin-button'], 'Закрепить');
+        this.pinButton = createElement('a', ['pin-button'], 'Закрепить');
 
-        contextMenuItem.append(pinIcon, this.pinButton);
+        contextMenuItemPin.append(pinIcon, this.pinButton);
 
-        contextMenu.append(contextMenuItem);
+        contextMenu.append(contextMenuItemPin);
+        console.log(targetMessage);
 
+        if (targetMessage.type !== 'text' && targetMessage.type !== 'location') {
+            const contextMenuItemDownload = createElement('div', ['context-menu-item']);
+
+            const downloadIcon = createElement('img', ['download-icon', 'icon']);
+            downloadIcon.src = download;
+            const downloadButton = createElement('a', ['download-button'], 'Скачать');
+
+            setUrl(downloadButton, targetMessage.messageContent, 'href')
+            downloadButton.download = targetMessage.name;
+            downloadButton.target = '_blank';
+
+            contextMenuItemDownload.append(downloadIcon, downloadButton);
+            contextMenu.append(contextMenuItemDownload);
+        }
         return contextMenu;
     }
 
     //Обработчик нажатия на кнопку закрепить
     _onPinButton(targetMessage) {
 
-        if(this.onPin){
+        if (this.onPin) {
             this.onPin(targetMessage);
         }
-    
+
         this.removeContextMenu();
     }
 
