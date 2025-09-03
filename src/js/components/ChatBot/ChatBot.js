@@ -1,7 +1,7 @@
 import './ChatBot.scss';
 import { createElement, qs } from '../../helpers/dom';
-import Header from '../header/Header';
-import ChatArea from '../chatArea/ChatArea';
+import Header from '../Header/Header';
+import ChatArea from '../ChatArea/ChatArea';
 import InputBar from '../InputBar/InputBar';
 import sendMessage from '../../utils/messageApi/sendMessage';
 

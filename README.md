@@ -1,5 +1,7 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/gdtge8oinrpk3xv1?svg=true)](https://ci.appveyor.com/project/AntonyCoder/organizer-bot)
 
+https://antonycoder.github.io/Organizer-Bot/
+
 # Веб приложение чат для сохранения важной информации
 
 Современное веб-приложение для сохранения сообщений, файлов, медиа контента и даже геолокаций, с богатым набором функций. Проект демонстрирует использование современных веб-технологий и популярных библиотек для создания полнофункционального интерфейса.
