@@ -1,3 +1,5 @@
+@use './variables.scss' as *;
+
 * {
     box-sizing: border-box;
     font-family: sans-serif;
@@ -5,7 +7,7 @@
     padding: 0;
 }
 
-button{
+button {
     border: none;
     background-color: transparent;
     cursor: pointer;
@@ -14,11 +16,15 @@ button{
     align-items: center;
 }
 
-.icon{
+.icon {
     width: 20px;
 }
 
-ul{
-    list-style-type: none;
+a {
+    text-decoration: none;
+    color: $primary-color ;
 }
 
+ul {
+    list-style-type: none;
+}

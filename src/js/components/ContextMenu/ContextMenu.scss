@@ -23,11 +23,12 @@
 .context-menu-item {
     display: flex;
     align-items: center;
-    justify-content: space-between;
 
-    padding: 5px 40px 5px 5px;
+    padding: 8px 40px 8px 8px;
 
-    gap: 5px;
+    font-size: 14px;
+
+    gap: 10px;
 
     &:hover {
         cursor: pointer;
