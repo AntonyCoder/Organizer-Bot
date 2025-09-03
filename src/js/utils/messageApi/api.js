@@ -1,7 +1,9 @@
 //Загрузка сообщений
+const API_URL = 'http://localhost:3000/messages';
+
 export default async function loadData(offset, limit) {
     try {
-        const response = await fetch(`http://localhost:3000/messages?offset=${offset}&limit=${limit}`)
+        const response = await fetch(`${API_URL}?offset=${offset}&limit=${limit}`);
         const messages = await response.json();
 
         return messages;
@@ -16,7 +18,7 @@ export async function fetchMessage(newMessage) {
     try {
         //Если это текстовое сообщение
         if (newMessage.type === 'text' || newMessage.type === 'location') {
-            await fetch('http://localhost:3000/messages', {
+            await fetch(API_URL, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(newMessage),
@@ -31,7 +33,7 @@ export async function fetchMessage(newMessage) {
             if (newMessage.name) {
                 formData.append('name', newMessage.name);
             }
-            await fetch('http://localhost:3000/messages', {
+            await fetch(API_URL, {
                 method: 'POST',
                 body: formData
             })

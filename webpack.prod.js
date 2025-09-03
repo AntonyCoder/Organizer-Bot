@@ -18,14 +18,14 @@ module.exports = merge(common, {
       },
       {
         test: /\.scss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       },
     ],
+  },
     plugins: [
       new MiniCssExtractPlugin({
         filename: "[name].[contenthash].css",
         chunkFilename: "[id].[contenthash].css",
       }),
     ],
-  }
 });
